@@ -1,0 +1,24 @@
+# @package _global_
+
+defaults:
+  - /experiment/cora/default
+  - override /model: gcn
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["Cora", "GCN"]
+
+model:
+  encoder:
+    dim_in: 1433
+    dim_hidden: 300
+    dim_out: 7
+    num_layers: 4
+  num_classes: 7
+
+logger:
+  wandb:
+    tags: ${tags}
+    # group: "mnist"
+    name: "GCN"

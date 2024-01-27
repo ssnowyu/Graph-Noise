@@ -1,0 +1,19 @@
+_target_: src.models.gcn_module.GCNModule
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 0.001
+  weight_decay: 1e-5
+
+encoder:
+  _target_: src.models.components.encoder.GCNEncoder
+  dim_in: 1433
+  dim_hidden: 600
+  dim_out: 300
+  num_layers: 3
+
+num_classes: 7
+
+# compile model for faster training with pytorch 2.0
+compile: false
