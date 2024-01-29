@@ -56,7 +56,6 @@ class GCNModule(LightningModule):
         train_mask = g.ndata["train_mask"]
 
         logits = self.forward(g, feat)
-        logits = self.sigmoid(logits)
 
         loss = self.criterion(logits[train_mask], labels[train_mask])
 

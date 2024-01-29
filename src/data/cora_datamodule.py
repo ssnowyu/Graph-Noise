@@ -16,9 +16,11 @@ class CoraDataModule(LightningDataModule):
         batch_size: int = 1,
         num_workers: int = 0,
         pin_memory: bool = False,
-        reverse_edge: bool = True,
-        noise_rate: float = 0.0,
-        sigma: float = 0.01,
+        reverse_edge: bool = False,
+        noise_type: str = "none",  # ["none", "feat", "missing-edge", "redundant-edge", "error-edge"]
+        feat_noise_rate: float = 0.0,
+        feat_sigma: float = 0.0,
+        edge_rate: float = 0.0,
     ) -> None:
         super().__init__()
 
@@ -44,8 +46,11 @@ class CoraDataModule(LightningDataModule):
         self.dataset = CoraDataset(
             raw_dir=raw_dir,
             reverse_edge=self.hparams.reverse_edge,
-            noise_rate=self.hparams.noise_rate,
-            sigma=self.hparams.sigma,
+            noise_type=self.hparams.noise_type,
+            feat_noise_rate=self.hparams.feat_noise_rate,
+            feat_sigma=self.hparams.feat_sigma,
+            edge_rate=self.hparams.edge_rate,
+            force_reload=True,
         )
 
     def train_dataloader(self) -> TRAIN_DATALOADERS:
