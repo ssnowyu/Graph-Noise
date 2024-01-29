@@ -7,11 +7,11 @@ optimizer:
   weight_decay: 1e-5
 
 encoder:
-  _target_: src.models.components.encoder.GCNEncoder
-  dim_in: 1433
-  dim_hidden: 600
-  dim_out: 300
-  num_layers: 3
+  _target_: src.models.components.gnns.SimpleGCNEncoder
+  in_size: 1433
+  hid_size: 300
+  out_size: 7
+  # num_layers: 3
 
 num_classes: 7
 

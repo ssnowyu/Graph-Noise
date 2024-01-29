@@ -9,13 +9,34 @@ defaults:
 
 tags: ["Cora", "GCN"]
 
+# model:
+#   encoder:
+#     dim_in: 1433
+#     dim_hidden: 300
+#     dim_out: 7
+#     num_layers: 4
+#   num_classes: 7
+
 model:
+  optimizer:
+    lr: 1e-2
+    weight_decay: 1e-4
   encoder:
-    dim_in: 1433
-    dim_hidden: 300
-    dim_out: 7
-    num_layers: 4
-  num_classes: 7
+    in_size: 1433
+    hid_size: 64
+    out_size: 7
+
+trainer:
+  min_epochs: 1
+  max_epochs: 300
+  gradient_clip_val: 0.0
+
+callbacks:
+  early_stopping:
+    monitor: "val/acc" # quantity to be monitored, must be specified !!!
+    min_delta: 0. # minimum change in the monitored quantity to qualify as an improvement
+    patience: 30 # number of checks with no improvement after which training will be stopped
+    mode: "max" # "max" means higher metric value is better, can be also "min"
 
 logger:
   wandb:

@@ -1,9 +1,32 @@
+from turtle import forward
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
 from torch.nn.functional import one_hot
+import dgl.nn as dglnn
+import dgl
+
 # from torch_geometric.nn import GATConv, GATv2Conv
 # from torch_geometric.nn.dense.linear import Linear
+
+
+class SimpleGCNEncoder(nn.Module):
+    def __init__(self, in_size, hid_size, out_size) -> None:
+        super().__init__()
+        self.layers = nn.ModuleList()
+        # two layers GCN
+        self.layers.append(dglnn.GraphConv(in_size, hid_size, activation=F.relu))
+        self.layers.append(dglnn.GraphConv(hid_size, out_size))
+        self.dropout = nn.Dropout(0.5)
+
+    def forward(self, g, feat):
+        g = dgl.add_self_loop(g)
+        h = feat
+        for i, layer in enumerate(self.layers):
+            if i != 0:
+                h = self.dropout(h)
+            h = layer(g, h)
+        return h
 
 
 class GCN(nn.Module):

@@ -1,10 +1,10 @@
-from torch.nn import Module, ModuleList, BatchNorm1d, ReLU, Linear, LayerNorm
+from torch.nn import Module, ModuleList, BatchNorm1d, ReLU, Linear, LayerNorm, Dropout
 import torch
 import dgl
 from dgl.nn import GraphConv, GATConv, SAGEConv
-import dgl.function as fn
+import dgl.function as dF
 import torch.nn.functional as F
-
+# import dgl.nn as dglnn
 
 class GCNEncoder(Module):
     def __init__(
