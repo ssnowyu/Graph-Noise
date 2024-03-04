@@ -1,0 +1,12 @@
+_target_: src.data.cora_datamodule.CoraDataModule
+data_dir: ${paths.data_dir}/cora
+batch_size: 1
+num_workers: 0
+pin_memory: False
+
+reverse_edge: True,
+
+noise_type: none
+feat_noise_rate: 0.0
+feat_sigma: 0.0
+edge_rate: 0.0
